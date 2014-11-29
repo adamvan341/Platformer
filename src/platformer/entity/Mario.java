@@ -15,36 +15,29 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package platformer.render;
+package platformer.entity;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import javax.swing.JPanel;
-import platformer.entity.Entity;
+import java.awt.image.BufferedImage;
 
 /**
  *
  * @author adam
  */
-public class GamePanel extends JPanel {
+public class Mario extends Entity {
 
-    public GamePanel(int WIDTH, int HEIGHT) {
-        setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        setFocusable(true);
-        setDoubleBuffered(true);
-        //TODO addKeyListener
+    private byte health;
+    
+    public Mario(float xPos, float yPos, float width, float height, BufferedImage image) {
+        super(xPos, yPos, width, height, image);
+        health = 1;
     }
     
-    public void paintComponent(Graphics g, Entity[] e) {
-        super.paintComponent(g);
-        
-        for (Entity ce : e) {
-            g.drawImage(ce.getImage(), (int)ce.getXPos(), (int)ce.getYPos(), 
-                    (int)ce.getWidth(), (int)ce.getHeight(), this);
-        }
+    public void setHealth(byte health) {
+        this.health = health;
     }
-    @Override
-    public void repaint() {
-        super.repaint();
+    
+    public int getHealth() {
+        return health;
     }
+    
 }
