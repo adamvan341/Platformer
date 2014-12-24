@@ -17,7 +17,13 @@
  */
 package platformer.main;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import platformer.entity.Block;
 import platformer.entity.Entity;
 import platformer.render.GamePanel;
 
@@ -34,6 +40,16 @@ public class GameLoop implements Runnable {
     public GameLoop() {
         gp = new GamePanel(640, 480);
         e = new Entity[24];
+        
+        
+        for (int x=0; x<e.length; x++) {
+            try {
+                e[x] = new Block((float) Math.random()*640, (float)Math.random()*480,
+                        32, 32, ImageIO.read(new File("res/blocks/dirt.png")));
+            } catch (IOException ex) {
+                System.err.println(ex);
+            }
+        }
         
         JFrame frame = new JFrame("Platformer");
         
@@ -56,7 +72,8 @@ public class GameLoop implements Runnable {
         while (true) {
             beforeTime = System.currentTimeMillis();
             
-            gp.paintComponent(gp.getGraphics(), e);
+            gp.paintComponent(e);
+            // gp.repaint();
             
             // Calculate how long the thread can sleep
             afterTime = System.currentTimeMillis();

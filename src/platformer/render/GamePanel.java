@@ -21,30 +21,39 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 import platformer.entity.Entity;
+import platformer.main.GameLoop;
 
 /**
  *
  * @author adam
  */
 public class GamePanel extends JPanel {
-
+    private GameLoop gameLoop;
     public GamePanel(int WIDTH, int HEIGHT) {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setFocusable(true);
         setDoubleBuffered(true);
+        //this.gameLoop = gameLoop;
         //TODO addKeyListener
     }
     
-    public void paintComponent(Graphics g, Entity[] e) {
-        super.paintComponent(g);
-        
+    public void paintComponent(Entity[] e) {
+        Graphics g = getGraphics();
         for (Entity ce : e) {
             g.drawImage(ce.getImage(), (int)ce.getXPos(), (int)ce.getYPos(), 
                     (int)ce.getWidth(), (int)ce.getHeight(), this);
         }
+        
+        super.paintComponent(g);
     }
+    
     @Override
     public void repaint() {
-        super.repaint();
+        // The dramatic sound of nothing
+    }
+    
+    @Override
+    public void paint(Graphics g) {
+        //Nothing
     }
 }
