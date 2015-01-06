@@ -19,8 +19,6 @@ package platformer.main;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import platformer.entity.Block;
@@ -32,20 +30,19 @@ import platformer.render.GamePanel;
  * @author adam
  */
 public class GameLoop implements Runnable {
-    boolean gameRunning = true;
+    boolean gameRunning = true;// Tests if the game is running
     
-    GamePanel gp;
-    Entity[] e;
+    GamePanel gp;// Graphics are drawn on the game panel
+    public Entity[] e;// A list of all entities in the game
     
     public GameLoop() {
-        gp = new GamePanel(640, 480);
+        gp = new GamePanel(640, 480, this);
         e = new Entity[24];
-        
         
         for (int x=0; x<e.length; x++) {
             try {
                 e[x] = new Block((float) Math.random()*640, (float)Math.random()*480,
-                        32, 32, ImageIO.read(new File("res/blocks/dirt.png")));
+                        ImageIO.read(new File("res/blocks/dirt.png")));
             } catch (IOException ex) {
                 System.err.println(ex);
             }
@@ -60,7 +57,18 @@ public class GameLoop implements Runnable {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
+    
+    /**
+     *  Updates the game logic on a per frame basis.
+     */
+    public void update() {
+        
+    }
 
+    /**
+     *  Opens a gameloop which constantly updates the screen contents and the
+     *  game logic.
+     */
     @Override
     public void run() {
         long beforeTime;// Time before updating game logic
@@ -72,8 +80,8 @@ public class GameLoop implements Runnable {
         while (true) {
             beforeTime = System.currentTimeMillis();
             
-            gp.paintComponent(e);
-            // gp.repaint();
+            update();
+            gp.repaint();
             
             // Calculate how long the thread can sleep
             afterTime = System.currentTimeMillis();

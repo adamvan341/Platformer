@@ -19,7 +19,13 @@ package platformer.render;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import platformer.entity.Background;
 import platformer.entity.Entity;
 import platformer.main.GameLoop;
 
@@ -28,32 +34,32 @@ import platformer.main.GameLoop;
  * @author adam
  */
 public class GamePanel extends JPanel {
-    private GameLoop gameLoop;
-    public GamePanel(int WIDTH, int HEIGHT) {
+    
+    private GameLoop gl;
+    private Background bg;
+    
+    public GamePanel(int WIDTH, int HEIGHT, GameLoop gameLoop) {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setFocusable(true);
         setDoubleBuffered(true);
-        //this.gameLoop = gameLoop;
+        
+        this.gl = gameLoop;
+        try {
+            bg = new Background(ImageIO.read(new File("res/background.png")));
+            
+        } catch (IOException ex) {
+            Logger.getLogger(GamePanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
         //TODO addKeyListener
     }
     
-    public void paintComponent(Entity[] e) {
-        Graphics g = getGraphics();
-        for (Entity ce : e) {
+    @Override
+    public void paintComponent(Graphics g) {
+        g.drawImage(bg.getImage(), 0, 0, this);
+        
+        for (Entity ce : gl.e) {
             g.drawImage(ce.getImage(), (int)ce.getXPos(), (int)ce.getYPos(), 
                     (int)ce.getWidth(), (int)ce.getHeight(), this);
         }
-        
-        super.paintComponent(g);
-    }
-    
-    @Override
-    public void repaint() {
-        // The dramatic sound of nothing
-    }
-    
-    @Override
-    public void paint(Graphics g) {
-        //Nothing
     }
 }

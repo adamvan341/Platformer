@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 Adam Vanderneut
+ * Copyright (C) 2015 adam
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -23,13 +23,10 @@ import java.awt.image.BufferedImage;
  *
  * @author adam
  */
-public class Block extends Entity {
-    
-    public static final float WIDTH = 32;
-    public static final float HEIGHT = 32;
-    
-    public Block(float xPos, float yPos, BufferedImage image) {
-        super(xPos, yPos, WIDTH, HEIGHT, image);
+public class Background extends Entity {
+
+    public Background(BufferedImage image) {
+        super(0, 0, 640, 480, image);
     }
     
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 Adam Vanderneut
+ * Copyright (C) 2015 adam
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -17,19 +17,21 @@
  */
 package platformer.entity;
 
-import java.awt.image.BufferedImage;
-
 /**
- *
+ * Implements everything needed for a stage in the platforming video game
+ * including a background, an array of blocks, an array of enemies, and a 
+ * tile-pack for the blocks.
+ * 
  * @author adam
  */
-public class Block extends Entity {
+public class Level {
+    Block[][] block;
+    Background background;
+    Enemy[] enemy;
+    Checkpoint checkpoint;
+    TilePack tilepack;
     
-    public static final float WIDTH = 32;
-    public static final float HEIGHT = 32;
-    
-    public Block(float xPos, float yPos, BufferedImage image) {
-        super(xPos, yPos, WIDTH, HEIGHT, image);
+    public Level() {
+        
     }
-    
 }
