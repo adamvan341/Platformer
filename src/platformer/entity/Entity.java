@@ -25,6 +25,7 @@ import java.awt.image.BufferedImage;
  */
 abstract public class Entity {
     
+    protected boolean activated;
     protected float xPos, yPos;
     protected float width, height;
     protected BufferedImage image;
@@ -35,6 +36,7 @@ abstract public class Entity {
         this.width = width;
         this.height = height;
         this.image = image;
+	activated = false;
     }
     
     public final float getXPos() {
@@ -55,5 +57,40 @@ abstract public class Entity {
     
     public final BufferedImage getImage() {
         return image;
+    }
+    public final void setXPos(float xPos) {
+        this.xPos = xPos;
+    }
+    
+    public final void setYPos(float yPos) {
+        this.yPos = yPos;
+    }
+    
+    public final void setWidth(float width) {
+        this.width = width;
+    }
+    
+    public final void setHeight(float height) {
+        this.height = height;
+    }
+    
+    public final void setImage(BufferedImage image) {
+        this.image = image;
+    }
+    
+    public void activate() {
+	this.activated = true;
+    }
+    
+    public void deactivate() {
+	this.activated = false;
+    }
+    
+    public void toggleActivation() {
+	this.activated = !activated;
+    }
+    
+    public boolean isActivated() {
+	return activated;
     }
 }
