@@ -17,7 +17,9 @@
  */
 package platformer.entity;
 
-import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -25,8 +27,7 @@ import java.awt.image.BufferedImage;
  */
 public class Background extends Entity {
 
-    public Background(BufferedImage image) {
-        super(0, 0, 640, 480, image);
+    public Background(String fileName) throws IOException {
+        super(0, 0, 640, 480, ImageIO.read(new File(fileName)));
     }
-    
 }
